@@ -14,7 +14,7 @@ def create_fold(data):
     data = data.sample(frac=1).reset_index(drop=True)
     kf = model_selection.KFold(n_splits=5)
 
-    for fold, (train_idx, val_idx) in enumerate(kf.split(X=data['GT Compressor decay state coefficient.'])):
+    for fold, (train_idx, val_idx) in enumerate(kf.split(X=data[['GT Turbine decay state coefficient.']])):
         data.loc[val_idx, 'kfold'] = fold
 
     data.to_csv('train_folds1.csv')
@@ -35,11 +35,11 @@ def reg_startified_fold(data):
 # calculating number of bins
     num_bins = np.floor(1 + np.log2(len(data)))
 # column on which we want to validate
-    data.loc[:, 'bins'] = pd.cut(x=data['GT Compressor decay state coefficient.'], bins=num_bins, labels=False)
+    data.loc[:, 'bins'] = pd.cut(x=data[['GT Turbine decay state coefficient.']], bins=num_bins, labels=False)
 # initiate kFold
     kf = model_selection.StratifiedKFold(n_splits=5)
 
-    for fold, (train_idx, val_idx) in enumerate(kf.split(X=data['GT Compressor decay state coefficient.'],y=data.bins.values)):
+    for fold, (train_idx, val_idx) in enumerate(kf.split(X=data['GT Turbine decay state coefficient.'],y=data.bins.values)):
         data.loc[val_idx, 'kfold'] = fold
     data.drop('bins',axis=1,inplace=True)
     data.to_csv('reg_stratified.csv')

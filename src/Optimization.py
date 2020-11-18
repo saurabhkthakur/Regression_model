@@ -16,13 +16,13 @@ def run(trial):
     # validation data is where data is equal fold
     df_valid = df[df.kfold == 4].reset_index(drop=True)
 
-    feature = df.drop(['kfold', 'GT Compressor decay state coefficient.'], axis=1).columns
+    feature = df.drop(['kfold', 'GT Turbine decay state coefficient.'], axis=1).columns
 
     x_train = df_train[feature].values
-    y_train = df_train['GT Compressor decay state coefficient.'].values
+    y_train = df_train['GT Turbine decay state coefficient.'].values
 
     x_valid = df_valid[feature].values
-    y_valid = df_valid['GT Compressor decay state coefficient.'].values
+    y_valid = df_valid['GT Turbine decay state coefficient.'].values
 
     alpha = trial.suggest_uniform('alpha', 0.1, 1)
     max_iter = trial.suggest_int('max_iter', 1000, 10000)
