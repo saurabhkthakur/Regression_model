@@ -14,5 +14,6 @@ Test
 
 2. On Polynomial Regresssion with (power =2,3) =Data overfits
 
+![alt text](https://github.com/saurabhkthakur/Regression_model/blob/main/Capture.PNG)
 
 
